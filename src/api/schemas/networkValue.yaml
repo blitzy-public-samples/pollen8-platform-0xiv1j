@@ -1,0 +1,112 @@
+openapi: 3.0.0
+components:
+  schemas:
+    NetworkValue:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+          description: Unique identifier of the user
+        value:
+          type: number
+          format: float
+          minimum: 0
+          description: Calculated network value of the user
+        calculatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of when the network value was last calculated
+      required:
+        - userId
+        - value
+        - calculatedAt
+
+    NetworkValueHistory:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+          description: Unique identifier of the user
+        history:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+                format: float
+                minimum: 0
+                description: Network value at a specific point in time
+              calculatedAt:
+                type: string
+                format: date-time
+                description: Timestamp of when this value was calculated
+            required:
+              - value
+              - calculatedAt
+      required:
+        - userId
+        - history
+
+    TopNetworkValues:
+      type: object
+      properties:
+        topUsers:
+          type: array
+          items:
+            type: object
+            properties:
+              userId:
+                type: string
+                format: uuid
+                description: Unique identifier of the user
+              username:
+                type: string
+                description: Username of the user
+              networkValue:
+                type: number
+                format: float
+                minimum: 0
+                description: Network value of the user
+            required:
+              - userId
+              - username
+              - networkValue
+        totalCount:
+          type: integer
+          minimum: 0
+          description: Total number of users in the top network values list
+      required:
+        - topUsers
+        - totalCount
+
+    NetworkValueCalculationRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+          description: Unique identifier of the user for whom to calculate the network value
+      required:
+        - userId
+
+    NetworkValueCalculationResponse:
+      type: object
+      properties:
+        networkValue:
+          $ref: '#/components/schemas/NetworkValue'
+        previousValue:
+          type: number
+          format: float
+          minimum: 0
+          description: Previous network value before this calculation
+        percentageChange:
+          type: number
+          format: float
+          description: Percentage change from the previous value
+      required:
+        - networkValue
+        - previousValue
+        - percentageChange
