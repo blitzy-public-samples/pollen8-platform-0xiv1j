@@ -1,0 +1,60 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  body { @apply bg-white text-black dark:bg-black dark:text-white; }
+  h1 { @apply text-4xl font-bold mb-4; }
+  h2 { @apply text-3xl font-semibold mb-3; }
+  h3 { @apply text-2xl font-medium mb-2; }
+  a { @apply text-gray-800 hover:text-gray-600 dark:text-gray-200 dark:hover:text-gray-400; }
+}
+
+@layer components {
+  .btn { @apply px-4 py-2 rounded-md transition-colors duration-200; }
+  .btn-primary { @apply bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200; }
+  .btn-secondary { @apply bg-white text-black border border-black hover:bg-gray-100 dark:bg-black dark:text-white dark:border-white dark:hover:bg-gray-900; }
+  .input { @apply px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black dark:border-gray-700 dark:focus:ring-white; }
+  .card { @apply bg-white shadow-md rounded-lg p-6 dark:bg-gray-800; }
+}
+
+@layer utilities {
+  .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #000000;
+    --color-secondary: #FFFFFF;
+  }
+}
+
+@layer utilities {
+  .font-sans {
+    font-family: Inter, sans-serif;
+  }
+}
+
+/* Custom spacing */
+.w-72 { width: 18rem; }
+.w-84 { width: 21rem; }
+.w-96 { width: 24rem; }
+
+/* Extend variants */
+@variants active, group-hover {
+  .bg-primary { background-color: var(--color-primary); }
+  .text-primary { color: var(--color-primary); }
+}
+
+@variants focus-visible, first, last {
+  .border-primary { border-color: var(--color-primary); }
+}
+
+@variants disabled {
+  .opacity-50 { opacity: 0.5; }
+}
