@@ -1,0 +1,97 @@
+openapi: 3.0.0
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the user
+        phoneNumber:
+          type: string
+          pattern: ^\+[1-9]\d{1,14}$
+          description: User's phone number in E.164 format
+        username:
+          type: string
+          minLength: 3
+          maxLength: 30
+          description: User's chosen username
+        location:
+          type: string
+          description: User's location (city, state, or country)
+        industries:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 5
+          description: List of industries the user is associated with
+        interests:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 10
+          description: List of user's professional interests
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of when the user account was created
+        lastLogin:
+          type: string
+          format: date-time
+          description: Timestamp of the user's last login
+      required:
+        - id
+        - phoneNumber
+        - username
+        - location
+        - industries
+        - interests
+        - createdAt
+
+    UserUpdateRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 3
+          maxLength: 30
+          description: Updated username
+        location:
+          type: string
+          description: Updated location
+        industries:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 5
+          description: Updated list of industries
+        interests:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 10
+          description: Updated list of interests
+
+    UserProfile:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        connectionCount:
+          type: integer
+          minimum: 0
+          description: Number of connections the user has
+        networkValue:
+          type: number
+          format: float
+          minimum: 0
+          description: Calculated network value of the user
+      required:
+        - user
+        - connectionCount
+        - networkValue
