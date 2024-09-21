@@ -1,0 +1,92 @@
+openapi: 3.0.0
+components:
+  schemas:
+    Invite:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the invite
+        creatorId:
+          type: string
+          format: uuid
+          description: ID of the user who created the invite
+        inviteCode:
+          type: string
+          minLength: 8
+          maxLength: 8
+          description: Unique invite code
+        clicks:
+          type: integer
+          minimum: 0
+          description: Number of times the invite link has been clicked
+        isActive:
+          type: boolean
+          description: Whether the invite is currently active
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp of when the invite was created
+      required:
+        - id
+        - creatorId
+        - inviteCode
+        - clicks
+        - isActive
+        - createdAt
+
+    InviteCreationResponse:
+      type: object
+      properties:
+        invite:
+          $ref: '#/components/schemas/Invite'
+        inviteLink:
+          type: string
+          format: uri
+          description: Full URL for the invite link
+      required:
+        - invite
+        - inviteLink
+
+    InviteList:
+      type: object
+      properties:
+        invites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invite'
+        totalCount:
+          type: integer
+          minimum: 0
+          description: Total number of invites
+      required:
+        - invites
+        - totalCount
+
+    InviteStats:
+      type: object
+      properties:
+        totalInvites:
+          type: integer
+          minimum: 0
+          description: Total number of invites created by the user
+        activeInvites:
+          type: integer
+          minimum: 0
+          description: Number of currently active invites
+        totalClicks:
+          type: integer
+          minimum: 0
+          description: Total number of clicks across all invites
+        conversionRate:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Conversion rate of invites (successful signups / total clicks)
+      required:
+        - totalInvites
+        - activeInvites
+        - totalClicks
+        - conversionRate
