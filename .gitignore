@@ -1,0 +1,53 @@
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build output
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Testing
+coverage/
+
+# Temporary files
+tmp/
+temp/
+
+# Database
+*.sqlite
+
+# Compiled output
+*.js
+*.js.map
+*.d.ts
+
+# Exclude specific JavaScript files that should be tracked
+!jest.config.js
+!.eslintrc.js
+
+# Cache directories
+.cache/
+.npm/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
