@@ -1,0 +1,82 @@
+openapi: 3.0.0
+components:
+  schemas:
+    Connection:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the connection
+        userId1:
+          type: string
+          format: uuid
+          description: ID of the first user in the connection
+        userId2:
+          type: string
+          format: uuid
+          description: ID of the second user in the connection
+        strength:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Strength of the connection, represented as a value between 0 and 1
+        connectedAt:
+          type: string
+          format: date-time
+          description: Timestamp of when the connection was established
+      required:
+        - id
+        - userId1
+        - userId2
+        - strength
+        - connectedAt
+
+    ConnectionRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+          description: ID of the user to connect with
+      required:
+        - userId
+
+    ConnectionResponse:
+      type: object
+      properties:
+        connection:
+          $ref: '#/components/schemas/Connection'
+        user:
+          $ref: 'user.yaml#/components/schemas/User'
+      required:
+        - connection
+        - user
+
+    ConnectionList:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectionResponse'
+        totalCount:
+          type: integer
+          minimum: 0
+          description: Total number of connections
+      required:
+        - connections
+        - totalCount
+
+    ConnectionStrengthUpdate:
+      type: object
+      properties:
+        strength:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Updated strength of the connection
+      required:
+        - strength
